@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            quiz
+        </title>
+        <style>
+        label{
+         display: block;
+         margin-bottom: 8px ;
+         margin-right: 100px;
+         border-radius: 30px;
+         font-family: 
+         
+        }const questions = [
+
+ function myfunction() {
+  const userInput = document.querySelector('input[type="text"], input[name="user"]')?.value || "";
+  const passwordInput = document.querySelector('input[type="password"]')?.value || "";
+ const messageElement =document.getElementById("statusMessage");
+  if (!userInput.trim() || !passwordInput.trim()) {
+    messageElement.textContent("من فضلك أدخل اسم المستخدم أو البريد الإلكتروني وكلمة المرور");
+    messageElement.style.color="red";
+    return;
+  }
+
+  messageElement.textContent="تم تسجيل الدخول بنجاح";
+  messageElement.style.color ="greed";
+  window.location.href="questions.html";
+}
+  {
+    question: "ما هي اول سوره نزلت من القران",
+    options: ["المدثر", "العلق", "البقره", "الفاتحه"],
+    answer: "العلق"
+  },
+  {
+    question: "كم عدد سور القران الكريم",
+    options: ["112سوره", "114سوره", "120سوره", "115سوره"],
+    answer: "114سوره"
+  },
+  {
+    question: "من هو النبي الذي لقب بكليم الله",
+    options: ["ابراهيم", "عيسى", "موسى", "يوسف"],
+    answer: "موسى"
+  }
+];
+
+let currentIndex = 0;
+let score = 0;
+let selectedOption = null;
+const restartBtnEl = document.getElementById("restartBtn");
+const progressEl = document.getElementById("progress");
+const questionEl = document.getElementById("questionText");
+const optionsBoxEl = document.getElementById("optionsBox");
+const nextBtnEl = document.getElementById("nextBtn");
+const resultBoxEl = document.getElementById("resultBox");
+
+function renderQuestion() {
+  selectedOption = null;
+  resultBoxEl.textContent = "";
+
+  const currentQuestion = questions[currentIndex];
+  progressEl.textContent = 'Question ${currentIndex + 1} of ${questions.length}';
+  questionEl.textContent = currentQuestion.question;
+  optionsBoxEl.innerHTML = "";
+
+  currentQuestion.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "option-btn";
+    button.textContent = option;
+
+    button.addEventListener("click", () => {
+      selectedOption = option;
+      document.querySelectorAll(".option-btn").forEach((btn) => {
+        btn.classList.remove("selected");
+      });
+      button.classList.add("selected");
+    });
+
+    optionsBoxEl.appendChild(button);
+  });
+
+  nextBtnEl.textContent = currentIndex === questions.length - 1 ? "Finish" : "Next";
+}
+
+nextBtnEl.addEventListener("click", () => {
+  if (!selectedOption) {
+    resultBoxEl.textContent = "❌ اختر إجابة أولًا";
+    resultBoxEl.style.color = "red";
+    return;
+  }
+
+  if (selectedOption === questions[currentIndex].answer) {
+    score++;
+  }
+
+  currentIndex++;
+
+  if (currentIndex < questions.length) {
+    renderQuestion();
+  } else {
+    progressEl.textContent = "";
+    questionEl.textContent = "Quiz Completed!";
+    optionsBoxEl.innerHTML = "";
+    nextBtnEl.style.display = "none";
+    resultBoxEl.textContent ='نتيجتك:  score + من + questions.length';
+    resultBoxEl.style.color = score>0  , "green";
+    restartBtnEl.style.display="block";
+  }
+  restartBtnEl.addEventListener("click", () => {
+  currentIndex = 0;
+  score = 0;
+  selectedOption = null;
+  restartBtnEl.style.display = "none";
+  nextBtnEl.style.display = "block";
+});
+});
+
+renderQuestion();
+        input{<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroX - Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .quiz-box {
+      background: #ffffff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 480px;
+    }
+    #progress {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    #questionText {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .option-btn:hover {
+      background: #eef2ff;
+    }
+    .option-btn.selected {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+    #nextBtn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #resultBox {
+      margin-top: 16px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <p id="progress"></p>
+    <h2 id="questionText"></h2>
+    <div id="optionsBox"></div>
+    <button type="button" id="nextBtn">Next</button>
+    <p id="resultBox"></p>
+     <button type="-button"id="restartBtn" style="display: none;">اعاده الاختبار</button>
+  </div>
+
+  <script src="questions.js"></script>
+</body>
+</html>
+            border:1px solid black;
+            border-radius: 8px ;
+        }
+        input:focus{
+            border-color: #22c9ff;
+        }
+        .login{
+        
+            margin-left: 110px ;
+            text-align: center;
+            width: 350px ;
+            height: max-content;
+            margin-top: 70px ;
+            border:1px solid white;
+            border-radius: 15px ;
+            box-shadow: 10px 10px 10px;
+            
+
+        }
+          .button{
+            display: block;
+            margin-top: 8px ;
+            text-align: center;
+            transition: all;
+        
+            }
+            
+            
+        body{
+            background-color: beige;
+            display: block;
+            align-items: center;
+            align-items: center;
+        
+        }
+        h2{
+            text-align: center;
+            box-shadow: 10px 10px 20px ;
+            border-radius: 10px ;
+            display: block;
+        
+        }
+        h3{
+            text-align: center;
+        }
+        .link1{
+        
+        }
+           
+
+        
+        </style>
+    </head>
+    <body>
+        <h2>NeuroX</h2>
+        <div class="login">
+            <h3>log-in</h3>
+            <div>
+        <label for="username">user or email</label>
+        <input id="username"type="text"required placeholder="enter username or email">
+        
+        
+         
+
+            
+         
+          <div>
+            <label for="password">password</label>
+         <input id="password" type="password"required placeholder="enter password">
+         
+         </div>
+        </div>
+        <div class="button">
+        <div>
+            <button onclick="myfunction()">login</button>
+            <p id="statusMessage"></p>
+            </div>
+            <p>Dont have an account? <a href="signin">sign-in</a></p>
+            
+            <div class="link1">
+          <img src="github.webp">  <a href="#"class="gethub-btn">coninue with github</a>
+          </div>
+            
+            <div class="link2">
+             <img src="facebook.webp"><a href="#"class="facebook-btn">coninue with facebook</a>
+             <br>
+             </div>
+             <div class="link3">
+             <img src="google.webp"><a href="#"class="google-btn">coninue with google</a>
+              </div>
+              
+    
+        <script src="Script.js"></script>
+
+    </body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroX - Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .quiz-box {
+      background: #ffffff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 480px;
+    }
+    #progress {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    #questionText {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+    .option-btn {
+      display: block;
+      width: 100%;
+      text-align: right;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .option-btn:hover {
+      background: #eef2ff;
+    }
+    .option-btn.selected {
+      background: #2563eb;
+      color: #ffffff;
+      border-color: #2563eb;
+    }
+    #nextBtn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #ffffff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #resultBox {
+      margin-top: 16px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-box">
+    <p id="progress"></p>
+    <h2 id="questionText"></h2>
+    <div id="optionsBox"></div>
+    <button type="button" id="nextBtn">Next</button>
+    <p id="resultBox"></p>
+     <button type="-button"id="restartBtn" style="display: none;">اعاده الاختبار</button>
+  </div>
+
+  <script src="questions.js"></script>
+</body>
+</html>
+const questions = [
+  {
+    question: "ما هي اول سوره نزلت من القران",
+    options: ["المدثر", "العلق", "البقره", "الفاتحه"],
+    answer: "العلق"
+  },
+  {
+    question: "كم عدد سور القران الكريم",
+    options: ["112سوره", "114سوره", "120سوره", "115سوره"],
+    answer: "114سوره"
+  },
+  {
+    question: "من هو النبي الذي لقب بكليم الله",
+    options: ["ابراهيم", "عيسى", "موسى", "يوسف"],
+    answer: "موسى"
+  }
+];
+
+let currentIndex = 0;
+let score = 0;
+let selectedOption = null;
+const restartBtnEl = document.getElementById("restartBtn");
+const progressEl = document.getElementById("progress");
+const questionEl = document.getElementById("questionText");
+const optionsBoxEl = document.getElementById("optionsBox");
+const nextBtnEl = document.getElementById("nextBtn");
+const resultBoxEl = document.getElementById("resultBox");
+
+function renderQuestion() {
+  selectedOption = null;
+  resultBoxEl.textContent = "";
+
+  const currentQuestion = questions[currentIndex];
+  progressEl.textContent = 'Question ${currentIndex + 1} of ${questions.length}';
+  questionEl.textContent = currentQuestion.question;
+  optionsBoxEl.innerHTML = "";
+
+  currentQuestion.options.forEach((option) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "option-btn";
+    button.textContent = option;
+
+    button.addEventListener("click", () => {
+      selectedOption = option;
+      document.querySelectorAll(".option-btn").forEach((btn) => {
+        btn.classList.remove("selected");
+      });
+      button.classList.add("selected");
+    });
+
+    optionsBoxEl.appendChild(button);
+  });
+
+  nextBtnEl.textContent = currentIndex === questions.length - 1 ? "Finish" : "Next";
+}
+
+nextBtnEl.addEventListener("click", () => {
+  if (!selectedOption) {
+    resultBoxEl.textContent = "❌ اختر إجابة أولًا";
+    resultBoxEl.style.color = "red";
+    return;
+  }
+
+  if (selectedOption === questions[currentIndex].answer) {
+    score++;
+  }
+
+  currentIndex++;
+
+  if (currentIndex < questions.length) {
+    renderQuestion();
+  } else {
+    progressEl.textContent = "";
+    questionEl.textContent = "Quiz Completed!";
+    optionsBoxEl.innerHTML = "";
+    nextBtnEl.style.display = "none";
+    resultBoxEl.textContent ='نتيجتك:  score + من + questions.length';
+    resultBoxEl.style.color = score>0  , "green";
+    restartBtnEl.style.display="block";
+  }
+  restartBtnEl.addEventListener("click", () => {
+  currentIndex = 0;
+  score = 0;
+  selectedOption = null;
+  restartBtnEl.style.display = "none";
+  nextBtnEl.style.display = "block";
+});
+});
+
+renderQuestion();
+
+
+ function myfunction() {
+  const userInput = document.querySelector('input[type="text"], input[name="user"]')?.value || "";
+  const passwordInput = document.querySelector('input[type="password"]')?.value || "";
+ const messageElement =document.getElementById("statusMessage");
+  if (!userInput.trim() || !passwordInput.trim()) {
+    messageElement.textContent("من فضلك أدخل اسم المستخدم أو البريد الإلكتروني وكلمة المرور");
+    messageElement.style.color="red";
+    return;
+  }
+
+  messageElement.textContent="تم تسجيل الدخول بنجاح";
+  messageElement.style.color ="greed";
+  window.location.href="questions.html";
+}
